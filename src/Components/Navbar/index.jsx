@@ -1,17 +1,20 @@
 import React from 'react'
 import { Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import users from '../../users.json';
 function MyNavbar() {
     const navigate = useNavigate()
-    let isLogin = localStorage.getItem("isLogin")
+    const location = useLocation();
+    let isLogin = location.pathname === '/profile'
     const handleLogin = () => {
         const name = prompt("Enter Your Name :");
         const user = users.find((user) => user.name === name);
         if (user) {
             localStorage.setItem('isLogin', true)
-            navigate('/profile/' + user.id)
-        }else{
+            navigate('/profile', {
+                state: user
+            })
+        } else {
             alert('Invalid User !')
         }
     }
@@ -39,13 +42,9 @@ function MyNavbar() {
                                 !isLogin ?
                                     <Button className="nav-link" onClick={handleLogin}>Login</Button>
                                     :
-                                    <Link className="nav-link" to="/profile">My Profile</Link>
+                                    <Button variant='danger' className="nav-link" onClick={handleLogout}>Logout</Button>
                             }
                         </li>
-                        {isLogin && <li className="nav-item">
-                            <Button variant='danger' className="nav-link" onClick={handleLogout}>Logout</Button>
-                        </li>
-                        }
                     </ul>
                 </div>
             </div>

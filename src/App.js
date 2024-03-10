@@ -5,6 +5,7 @@ import Home from './Pages/Home/Index';
 import CommonLayout from './Layouts/CommonLayout';
 import AuthLayout from './Layouts/AuthLayout';
 import Profile from './Pages/Profile';
+import NotFoundPage from './Pages/NotFoundPage';
 function App() {
   return (
     <div className="App">
@@ -15,9 +16,9 @@ function App() {
             <Route path='/about' element={<AboutUs />} />
           </Route>
           <Route path='/' element={<AuthLayout />} >
-            <Route path='/profile/:id' element={<Profile />} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
-          <Route path='*' element={<h1>404 Page NOT Found</h1>} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </div>

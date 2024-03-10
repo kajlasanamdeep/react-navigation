@@ -1,11 +1,9 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import users from '../../users.json';
+import { useLocation } from 'react-router-dom'
 function Profile() {
-    const params = useParams();
-    console.log(params);
-    const user = users.find((user) => +user.id === +params.id);
-    console.log(user);
+    const location = useLocation();
+    console.log(location);
+    const user = location.state;
     return (
         <div>
               Profile
