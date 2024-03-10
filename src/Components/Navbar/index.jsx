@@ -1,15 +1,18 @@
 import React from 'react'
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import users from '../../users.json';
 function MyNavbar() {
     const navigate = useNavigate()
     let isLogin = localStorage.getItem("isLogin")
     const handleLogin = () => {
         const name = prompt("Enter Your Name :");
-        if (name) {
+        const user = users.find((user) => user.name === name);
+        if (user) {
             localStorage.setItem('isLogin', true)
-            localStorage.setItem('name', name)
-            navigate('/profile')
+            navigate('/profile/' + user.id)
+        }else{
+            alert('Invalid User !')
         }
     }
     const handleLogout = () => {

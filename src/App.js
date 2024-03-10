@@ -11,12 +11,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<CommonLayout />} >
-            <Route path='/' element={<Home />} />
+            <Route index element={<Home />} />
             <Route path='/about' element={<AboutUs />} />
           </Route>
           <Route path='/' element={<AuthLayout />} >
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile/:id' element={<Profile />} />
           </Route>
+          <Route path='*' element={<h1>404 Page NOT Found</h1>} />
         </Routes>
       </BrowserRouter>
     </div>
