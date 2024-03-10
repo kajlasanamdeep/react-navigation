@@ -1,54 +1,25 @@
-import React from 'react'
-import { Button } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import users from '../../users.json';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import UserContext from '../../context'
 function MyNavbar() {
-    const navigate = useNavigate()
-    const location = useLocation();
-    let isLogin = location.pathname === '/profile'
-    const handleLogin = () => {
-        const name = prompt("Enter Your Name :");
-        const user = users.find((user) => user.name === name);
-        if (user) {
-            localStorage.setItem('isLogin', true)
-            navigate('/profile', {
-                state: user
-            })
-        } else {
-            alert('Invalid User !')
-        }
+    const { setShowSignUpModal } = useContext(UserContext)
+    const openSignup = ()=>{
+        setShowSignUpModal(true)
     }
-    const handleLogout = () => {
-        localStorage.clear()
-        navigate('/')
-    }
+  
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="header">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Navbar</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About US</Link>
-                        </li>
-                        <li className="nav-item">
-                            {
-                                !isLogin ?
-                                    <Button className="nav-link" onClick={handleLogin}>Login</Button>
-                                    :
-                                    <Button variant='danger' className="nav-link" onClick={handleLogout}>Logout</Button>
-                            }
-                        </li>
-                    </ul>
-                </div>
+                <Link to="/"><h1 className="brand"><span>N+</span></h1></Link>
+                <ul className="nav-items">
+                    <li><Link>Company</Link></li>
+                    <li><Link>Services</Link></li>
+                    <li><Link>Team</Link></li>
+                    <li><Link>Contact</Link></li>
+                    <li><Link className="sign-up" onClick={openSignup}>Sign Up</Link></li>
+                </ul>
             </div>
-        </nav>)
+        </div>)
 }
 
 export default MyNavbar
