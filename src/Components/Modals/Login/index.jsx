@@ -3,7 +3,9 @@ import UserContext from '../../../context'
 import { Button, Form, Modal, Row } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 function LoginModal() {
+    const navigate = useNavigate()
     const { showLoginModal, setShowLoginModal } = useContext(UserContext)
     const handleClose = () => {
         setShowLoginModal(false)
@@ -20,6 +22,29 @@ function LoginModal() {
         }),
         onSubmit: (values) => {
             console.log(values);
+            let users = localStorage.getItem('users');
+            if (users) {
+                users = JSON.parse(users);
+                if (Array.isArray(users)) {
+                    let user = users.find((item) => {
+                        return item.email === values.email
+                    });
+                    console.log(user);
+                    if (user && user.password === values.password) {
+                        alert('Login succes !')
+                        localStorage.setItem("user", JSON.stringify(user))
+                        setShowLoginModal(false)
+                        navigate('/profile', {
+                            state: user
+                        })
+                        return
+                    } else if (user) {
+                        alert('Invalid Password !')
+                        return
+                    }
+                }
+            }
+            alert('Please Signup your account before login !')
             setShowLoginModal(false)
         }
     });

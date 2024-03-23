@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Banner() {
     return (
-        <div className="section section--alt" id="get-started">
+        <div className="section section--alt" id="offers">
             <div className="container">
                 <h2 className="heading">Here is what we offer:</h2>
                 <div className="row">

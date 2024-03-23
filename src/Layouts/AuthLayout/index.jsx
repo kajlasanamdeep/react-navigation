@@ -3,10 +3,10 @@ import { Navigate, Outlet } from 'react-router-dom'
 import MyNavbar from '../../Components/Navbar'
 
 function AuthLayout() {
-    let isLogin = localStorage.getItem("isLogin")
+    let isLogin = localStorage.getItem("user")
     console.log(isLogin);
     if (!isLogin) {
-       return <Navigate to="/" />
+        return <Navigate to="/" state={JSON.parse(isLogin)} />
     }
     return (
         <div>

@@ -1,10 +1,20 @@
 import React, { useContext } from 'react'
 import UserContext from '../../context'
+import { useNavigate } from 'react-router-dom'
 
 function GetStarted() {
   const { setShowLoginModal } = useContext(UserContext)
-  const openLogin = ()=>{
-    setShowLoginModal(true)
+  const navigate = useNavigate()
+  const openLogin = () => {
+    let isLogin = localStorage.getItem("user")
+    if (isLogin) {
+      console.log(isLogin);
+      navigate('/profile', {
+        state: JSON.parse(isLogin)
+      })
+    } else {
+      setShowLoginModal(true)
+    }
   }
   return (
     <div class="jumbotron">

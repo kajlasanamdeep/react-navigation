@@ -1,7 +1,7 @@
 import './App.scss';
 import UserContext from './context';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AboutUs from './Pages/AboutUS';
+// import AboutUs from './Pages/AboutUS';
 import Home from './Pages/Home/Index';
 import CommonLayout from './Layouts/CommonLayout';
 import AuthLayout from './Layouts/AuthLayout';
@@ -21,13 +21,12 @@ function App() {
         setShowLoginModal,
         setShowSignUpModal
       }}>
-        <LoginModal />
-        <SignupModal/>
         <BrowserRouter>
+          <LoginModal />
+          <SignupModal />
           <Routes>
             <Route path='/' element={<CommonLayout />} >
               <Route index element={<Home />} />
-              <Route path='/about' element={<AboutUs />} />
             </Route>
             <Route path='/' element={<AuthLayout />} >
               <Route path='/profile' element={<Profile />} />
